@@ -1,4 +1,4 @@
-# frontend1-exercicios
+# Frontend1-exercicios
 
 ## Exercicio 01
 
@@ -121,3 +121,82 @@ sessionStorage.clear();
 ```
 
 `removeItem` remove apenas uma chave. `clear` limpa todos os dados salvos no `sessionStorage` da pagina.
+
+## Exercicio 03
+
+Objetivo: criptografar uma senha digitada pelo usuario, salvar no `localStorage`, recuperar e descriptografar para exibicao.
+
+### 1) HTML da interface
+
+```html
+<label for="password">Password:</label>
+<input type="password" id="password">
+<button type="button" id="password-button">passoword</button>
+<p id="resultado"></p>
+```
+
+Essa estrutura cria:
+
+- campo para digitar a senha
+- botao para executar o processamento
+- paragrafo para mostrar o resultado
+
+### 2) Bibliotecas carregadas
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/crypto-js.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+```
+
+- `CryptoJS`: usada para criptografar e descriptografar (AES)
+- `Bootstrap JS`: carregado no HTML (mesmo sem uso direto no `script.js`)
+- `script.js`: logica principal do exercicio
+
+### 3) Codigo principal (comentado)
+
+```js
+const secretKey = 'senhatrancada'; // chave usada no AES
+
+function processPassword() {
+	const passwordInput = document.getElementById('password');
+	const result = document.getElementById('resultado');
+	const password = passwordInput.value;
+
+	// valida se o usuario digitou algo
+	if (!password) {
+		result.textContent = 'Digite uma senha primeiro.';
+		return;
+	}
+
+	// criptografa a senha e salva no localStorage
+	const encrypted = CryptoJS.AES.encrypt(password, secretKey).toString();
+	localStorage.setItem('senha', encrypted);
+
+	// recupera do localStorage e descriptografa para texto normal
+	const stored = localStorage.getItem('senha');
+	const decrypted = CryptoJS.AES.decrypt(stored, secretKey).toString(CryptoJS.enc.Utf8);
+
+	// exibe o resultado descriptografado
+	result.textContent = 'Password: ' + decrypted;
+}
+
+document.getElementById('password-button').addEventListener('click', processPassword);
+```
+
+### 4) Explicacao do fluxo
+
+1. O usuario digita uma senha no input.
+2. Ao clicar no botao, a funcao `processPassword` e chamada.
+3. Se o campo estiver vazio, aparece a mensagem `Digite uma senha primeiro.`.
+4. Se houver valor, a senha e criptografada com AES (`CryptoJS.AES.encrypt`).
+5. O texto criptografado e salvo no `localStorage` na chave `senha`.
+6. Em seguida, o valor salvo e lido novamente do `localStorage`.
+7. O dado e descriptografado com a mesma chave (`CryptoJS.AES.decrypt`).
+8. O resultado final e mostrado no paragrafo `resultado`.
+
+### 5) Observacao importante
+
+Neste exercicio, a chave secreta fica no frontend para fins de estudo. Em aplicacoes reais, o ideal e nao expor chaves sensiveis no cliente.
+
+
