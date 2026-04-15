@@ -16,6 +16,7 @@ Este documento foi escrito para iniciantes, com linguagem simples e explicacao p
 - `exercicio-02`: formulario + `localStorage` + tema claro/escuro.
 - `exercicio-03`: criptografia AES com `CryptoJS`.
 - `exercicio-04`: anotacoes e pratica de `fetch`, `async/await` e metodos HTTP.
+- `exercicio-05`: buscar imagens de cachorro por raca usando API externa.
 
 ## Exercicio 01 - JSON e leitura de arquivo
 
@@ -47,6 +48,15 @@ Explicacao:
 2. `nome`, `idade` e `email` sao propriedades do objeto.
 3. Esse objeto representa dados que poderiam vir de um formulario ou API.
 
+**Fluxo:**
+```
+JavaScript cria objeto em memoria
+         ↓
+objeto fica disponivel no codigo
+         ↓
+Acesso: object.nome, object.idade, object.email
+```
+
 ### Codigo 2 - Converter objeto para JSON string
 
 ```js
@@ -60,6 +70,17 @@ Explicacao:
 2. Esse texto pode ser salvo, enviado para API ou armazenado.
 3. `console.log(parser)` mostra no console como ficou o JSON em texto.
 
+**Fluxo:**
+```
+Objeto JavaScript
+         ↓
+JSON.stringify() converte em texto
+         ↓
+Resultado: {"nome":"Jose Cleber","idade":32,"email":"cleberf64@gmail.com"}
+         ↓
+console.log mostra no console do navegador
+```
+
 ### Codigo 3 - Converter JSON string para objeto de novo
 
 ```js
@@ -71,6 +92,17 @@ Explicacao:
 
 1. `JSON.parse(parser)` pega o texto JSON e volta para objeto JavaScript.
 2. `object2` volta a ter propriedades acessiveis com ponto, por exemplo `object2.nome`.
+
+**Fluxo:**
+```
+Texto JSON (string)
+         ↓
+JSON.parse() converte de volta em objeto
+         ↓
+object2 fica com propriedades acessiveis
+         ↓
+Acesso: object2.nome, object2.idade, object2.email
+```
 
 ### Codigo 4 - Ler arquivo JSON local com fetch
 
@@ -93,6 +125,19 @@ Explicacao:
 2. `response.json()` transforma o retorno em objeto JavaScript.
 3. `data[0]` pega o primeiro item do array.
 4. `textContent` coloca os valores dentro dos elementos da pagina.
+
+**Fluxo:**
+```
+fetch() busca arquivo data.json no servidor
+         ↓
+response.json() converte conteudo em objeto JavaScript
+         ↓
+data[0] pega primeiro item do array
+         ↓
+textContent preenche elementos HTML (nome, idade, email)
+         ↓
+Dados aparecem na tela do navegador
+```
 
 ### Resumo do exercicio 01
 
@@ -135,6 +180,17 @@ Explicacao:
 2. `localStorage.setItem(chave, valor)` salva no navegador.
 3. Esses dados continuam salvos mesmo fechando o navegador.
 
+**Fluxo:**
+```
+Usuario digita dados no formulario
+         ↓
+.value pega os valores dos inputs
+         ↓
+localStorage.setItem() salva cada valor no navegador
+         ↓
+Dados armazenados permanentemente (até usuario limpar cache)
+```
+
 ### Codigo 2 - Ler tema salvo e atualizar texto do botao
 
 ```js
@@ -150,6 +206,15 @@ Explicacao:
 2. Se existir tema, o texto do botao vira esse valor.
 3. Se nao existir, o texto inicial fica `light`.
 
+**Fluxo:**
+```
+localStorage.getItem('theme') tenta ler tema salvo
+         ↓
+Se tema existe → botao mostra texto do tema
+         ↓
+Se tema nao existe → botao mostra 'light' como padrao
+```
+
 ### Codigo 3 - Aplicar tema escuro ao carregar a pagina
 
 ```js
@@ -162,6 +227,17 @@ Explicacao:
 
 1. Se o tema salvo for `dark`, adiciona classe `dark` no `body`.
 2. O CSS da classe `dark` muda as cores da pagina.
+
+**Fluxo:**
+```
+Pagina carrega (onload)
+         ↓
+Verifica: o tema salvo e 'dark'?
+         ↓
+Se SIM → adiciona classe 'dark' no body
+         ↓
+CSS aplica estilos escuros automaticamente
+```
 
 ### Codigo 4 - Alternar tema e salvar novamente
 
@@ -183,6 +259,21 @@ Explicacao:
 2. Depois verifica qual modo ficou ativo.
 3. Salva no `localStorage` para manter na proxima abertura.
 
+**Fluxo:**
+```
+Usuario clica botao de tema
+         ↓
+toggle('dark') liga ou desliga a classe
+         ↓
+Verifica: classe 'dark' esta ativa agora?
+         ↓
+Se SIM → salva 'dark' no localStorage
+         ↓
+Se NAO → salva 'light' no localStorage
+         ↓
+Proxima vez que abrir, tema e mantido
+```
+
 ### Codigo 5 - Evento de clique no botao de tema
 
 ```js
@@ -202,6 +293,19 @@ Explicacao:
 1. `addEventListener('click', ...)` executa codigo ao clicar.
 2. Dentro do evento, o tema salvo e atualizado.
 3. O texto do botao tambem pode ser atualizado com `innerText`.
+
+**Fluxo:**
+```
+Usuario clica botao de tema
+         ↓
+addEventListener detecta clique
+         ↓
+Verifica tema atual (light ou dark)
+         ↓
+Salva o tema oposto no localStorage
+         ↓
+Proxima vez que abrir, novo tema e usado
+```
 
 Observacao de iniciante:
 
@@ -303,6 +407,25 @@ document.getElementById('password-button').addEventListener('click', processPass
 6. Le novamente o valor salvo.
 7. Descriptografa com `CryptoJS.AES.decrypt`.
 8. Mostra o resultado no elemento `resultado`.
+
+**Fluxo Completo:**
+```
+Usuario digita senha e clica botao
+         ↓
+Valida: campo esta preenchido?
+         ↓
+Se NAO → mostra mensagem de erro
+         ↓
+Se SIM → CryptoJS.AES.encrypt() criptografa
+         ↓
+localStorage.setItem() salva criptografado
+         ↓
+localStorage.getItem() le novamente
+         ↓
+CryptoJS.AES.decrypt() descriptografa com mesma chave
+         ↓
+textContent mostra resultado na tela
+```
 
 ### Codigo 3 - Biblioteca usada no HTML
 
@@ -437,6 +560,25 @@ fetch(link) // faz a requisicao HTTP
 5. O segundo `then` recebe os dados prontos para uso.
 6. `catch` trata qualquer erro do processo.
 
+**Fluxo Completo:**
+```
+fetch(link) envia requisicao para API
+         ↓
+Aguarda resposta chegar
+         ↓
+Primeiro then() verifica: resposta.ok (sucesso)?
+         ↓
+Se NAO → throw new Error envia para catch
+         ↓
+Se SIM → resposta.json() converte em objeto
+         ↓
+Segundo then() recebe dados prontos
+         ↓
+console.log mostra dados no console
+         ↓
+catch captura qualquer erro do processo
+```
+
 ### Codigo 2 - Exemplo com async/await
 
 Este formato faz a mesma coisa, mas com leitura mais parecida com codigo sincrono.
@@ -487,6 +629,23 @@ getNomeDaApi();
 4. `await resposta.json()` converte JSON em objeto JavaScript.
 5. O `catch` centraliza o tratamento de erro.
 
+**Fluxo Completo:**
+```
+getNomeDaApi() e executada
+         ↓
+await fetch(link) pausa ate resposta chegar
+         ↓
+Verifica: resposta.ok (sucesso)?
+         ↓
+Se NAO → throw envia para catch
+         ↓
+Se SIM → await resposta.json() converte em objeto
+         ↓
+console.log mostra dados
+         ↓
+return retorna dados ou array vazio em caso de erro
+```
+
 ### Metodos HTTP (resumo simples)
 
 - `GET`: buscar dados.
@@ -519,6 +678,23 @@ fetch('https://jsonplaceholder.typicode.com/users', {
 controller.abort();
 ```
 
+**Fluxo:**
+```
+new AbortController() cria controlador
+         ↓
+fetch envia signal ao controlador
+         ↓
+controller.abort() cancela a requisicao
+         ↓
+catch captura erro com nome 'AbortError'
+         ↓
+Verifica: foi abortado intencionalmente?
+         ↓
+Se SIM → mostra "Requisicao cancelada"
+         ↓
+Se NAO → mostra erro de rede ou outro
+```
+
 ### Codigo 4 - DOM: innerText, innerHTML e appendChild
 
 ```js
@@ -536,6 +712,27 @@ caixa.appendChild(item);
 // adiciona um novo elemento filho dentro de "caixa"
 ```
 
+**Fluxo:**
+```
+caixa.innerText altera APENAS texto
+         ↓
+HTML tags sao ignoradas ou mostradas como texto
+         ↓
+-----------------------------------------
+         ↓
+caixa.innerHTML altera texto E tags
+         ↓
+Tags sao processadas e renderizadas
+         ↓
+-----------------------------------------
+         ↓
+document.createElement('p') cria novo elemento
+         ↓
+item.innerText adiciona texto nele
+         ↓
+caixa.appendChild(item) coloca dentro de caixa
+```
+
 ### Qual versao usar no dia a dia?
 
 - Para estudar base de promises, use `then/catch`.
@@ -549,3 +746,345 @@ caixa.appendChild(item);
 3. Metodo HTTP define a intencao da requisicao (buscar, criar, atualizar, remover).
 4. `AbortController` cancela requisicoes.
 5. Dados recebidos podem ser mostrados no HTML com manipulacao de DOM.
+
+
+## Exercicio 05 - Buscar imagens de cachorro por raca
+
+### Objetivo do exercicio
+
+Aprender a consultar uma API externa, processar resposta JSON e exibir dados dinamicamente no HTML.
+
+### O que foi feito
+
+1. Capturado valor do formulario (raca de cachorro).
+2. Validado se o campo esta preenchido.
+3. Feita requisicao `fetch` para API publica de cachorro.
+4. Convertido resposta em JSON.
+5. Exibido imagem do cachorro no HTML de forma dinamica.
+6. Mostrado mensagem de erro se raca nao existisse.
+
+### API usada: Dog CEO
+
+A API Dog CEO fornece imagens de cachorros por raca:
+
+Endpoint exemplo:
+```
+https://dog.ceo/api/breed/husky/images/random
+```
+
+Resposta sucesso:
+```json
+{
+  "message": "https://images.dog.ceo/breeds/husky/...",
+  "status": "success"
+}
+```
+
+Resposta erro:
+```json
+{
+  "message": "Breed not found (master breed does not exist)",
+  "status": "error"
+}
+```
+
+Observacao:
+
+1. E uma API publica e gratuita.
+2. Nao precisa de autenticacao (JWT, token, etc.).
+3. Retorna imagem aleatoria de cachorro da raca solicitada.
+
+### Codigo - Fluxo completo simplificado
+
+```js
+const formulario = document.getElementById('breed-form');
+const input = document.getElementById('breed');
+const result = document.getElementById('result');
+
+formulario.addEventListener('submit', async (event) => {
+	event.preventDefault(); // evita recarregar pagina
+	
+	const raca = input.value.trim().toLowerCase(); // pega valor e limpa
+	
+	if (!raca) { // valida se vazio
+		alert('Digite uma raça!');
+		return;
+	}
+	
+	const url = `https://dog.ceo/api/breed/${raca}/images/random`;
+	const resposta = await fetch(url); // chama API
+	const dados = await resposta.json(); // converte resposta em JSON
+	
+	if (dados.status === 'success') {
+		// se sucesso, exibe imagem
+		const image = `<img id="dog-image" alt="Imagem da raca pesquisada" src=${dados.message}>`;
+		result.innerHTML = image;
+	} else {
+		// se erro, mostra alerta
+		alert('Raça não encontrada!');
+	}
+});
+```
+
+### Explicacao linha por linha
+
+#### 1. Capturar elementos do HTML
+
+```js
+const formulario = document.getElementById('breed-form');
+const input = document.getElementById('breed');
+const result = document.getElementById('result');
+```
+
+1. `formulario` pega o elemento `<form>`.
+2. `input` pega o campo onde usuario digita a raca.
+3. `result` pega a area onde imagem sera exibida.
+
+**Fluxo:**
+```
+getElementById encontra elementos no HTML
+         ↓
+Armazena referencias para usar depois
+         ↓
+formulario, input, result ficam disponiveis
+```
+
+#### 2. Escutar clique do botao (submit do formulario)
+
+```js
+formulario.addEventListener('submit', async (event) => {
+```
+
+1. `addEventListener` aguarda usuario clicar botao de envio.
+2. `async` permite usar `await` dentro da funcao.
+3. `event` e o objeto de evento do clique.
+
+**Fluxo:**
+```
+addEventListener aguarda submit do formulario
+         ↓
+Usuario clica botao "Buscar"
+         ↓
+Funcao async e disparada
+         ↓
+event contem informacoes do clique
+```
+
+#### 3. Evitar recarregar pagina
+
+```js
+	event.preventDefault();
+```
+
+1. Normalmente, ao clicar botao em form, pagina recarrega.
+2. `preventDefault()` cancela isso.
+3. Deixa JavaScript controlar o fluxo.
+
+**Fluxo:**
+```
+form tentaria recarregar pagina (comportamento padrao)
+         ↓
+preventDefault() bloqueia isso
+         ↓
+JavaScript continua executando a funcao
+```
+
+#### 4. Pegar valor do input e limpar
+
+```js
+	const raca = input.value.trim().toLowerCase();
+```
+
+1. `input.value` pega texto que usuario digitou.
+2. `.trim()` remove espacos em branco no inicio/fim.
+3. `.toLowerCase()` transforma em minuscula (API espera assim).
+
+**Fluxo:**
+```
+input.value pega o que usuario digitou
+         ↓
+.trim() remove espacos: "  HUSKY  " → "HUSKY"
+         ↓
+.toLowerCase() minuscula: "HUSKY" → "husky"
+         ↓
+raca = "husky" (pronto para API)
+```
+
+#### 5. Validar se nao esta vazio
+
+```js
+	if (!raca) {
+		alert('Digite uma raça!');
+		return;
+	}
+```
+
+1. `!raca` e `true` se raca estiver vazia.
+2. Se vazio, mostra alerta e sai da funcao com `return`.
+3. Evita fazer requisicao desnecessaria.
+
+**Fluxo:**
+```
+if (!raca) verifica: campo esta vazio?
+         ↓
+Se SIM → alert mostra erro e return sai
+         ↓
+Se NAO → codigo continua normalmente
+```
+
+#### 6. Montar URL com template string
+
+```js
+	const url = `https://dog.ceo/api/breed/${raca}/images/random`;
+```
+
+1. Template string usa `${}` para inserir variavel.
+2. Se raca = `husky`, URL fica: `.../breed/husky/images/random`.
+
+**Fluxo:**
+```
+Template string pega valor de raca
+         ↓
+Insere na URL no lugar de ${}
+         ↓
+Resultado: https://dog.ceo/api/breed/husky/images/random
+```
+
+#### 7. Chamar API com fetch
+
+```js
+	const resposta = await fetch(url);
+```
+
+1. `fetch(url)` faz requisicao HTTP (metodo `GET` por padrao).
+2. `await` espera resposta chegar.
+3. `resposta` e um objeto com status, headers, corpo, etc.
+
+**Fluxo:**
+```
+fetch(url) envia requisicao para API
+         ↓
+await pausa o codigo ate resposta chegar
+         ↓
+resposta contem dados retornados pela API
+```
+
+#### 8. Converter resposta em JSON
+
+```js
+	const dados = await resposta.json();
+```
+
+1. `resposta.json()` le o corpo como JSON.
+2. Retorna objeto JavaScript com `message` e `status`.
+3. `await` aguarda conversao terminar.
+
+**Fluxo:**
+```
+resposta.json() converte texto em objeto
+         ↓
+await aguarda conversao terminar
+         ↓
+dados = {status: "success", message: "https://..."}
+```
+
+#### 9. Verificar se sucesso e exibir
+
+```js
+	if (dados.status === 'success') {
+		const image = `<img id="dog-image" alt="Imagem da raca pesquisada" src=${dados.message}>`;
+		result.innerHTML = image;
+	} else {
+		alert('Raça não encontrada!');
+	}
+```
+
+1. `dados.status` vem na resposta JSON.
+2. Se for `'success'`, API retornou imagem valida.
+3. `dados.message` contem URL da imagem.
+4. Criamos tag `<img>` como texto e jogamos em `innerHTML`.
+5. Se nao sucesso, mostra alerta de erro.
+
+**Fluxo:**
+```
+if (dados.status === 'success') verifica resposta
+         ↓
+Se SIM → monta tag <img> com URL da imagem
+         ↓
+innerHTML coloca tag no HTML
+         ↓
+Imagem aparece na tela
+         ↓
+Se NAO → alert mostra "Raça não encontrada!"
+```
+
+### Por que `innerHTML` aqui e nao `innerText`?
+
+- `innerText` coloca apenas texto dentro do elemento.
+- `innerHTML` coloca texto + tags HTML e depois renderiza.
+
+Se usasse `innerText`, mostraria: `<img id="dog-image" ... >` como texto.
+Com `innerHTML`, a tag e interpretada e imagem aparece na tela.
+
+### Entendendo `+=` vs `=` em innerHTML
+
+```js
+// isso substitui tudo que tinha antes
+result.innerHTML = '<img src="...">';
+
+// isso adiciona no final do que ja existia
+result.innerHTML += '<img src="...">';
+```
+
+No codigo, usamos `=` para substituir (limpar antes de mostrar nova imagem).
+
+### Conceitos praticados neste exercicio
+
+1. **Fetch**: requisicao HTTP para API externa.
+2. **Async/await**: esperar requisicao terminar.
+3. **JSON**: converter resposta em objeto JavaScript.
+4. **Validacao**: verificar se entrada e valida.
+5. **Template string**: inserir variavel em texto com `${}`.
+6. **DOM**: acessar e modificar HTML com JavaScript.
+7. **Tratamento basico de erro**: `if/else` para sucesso/falha.
+
+### Fluxo Completo do Exercicio 05
+
+```
+Usuario abre pagina
+         ↓
+Usuario digita raca (ex: "husky")
+         ↓
+Usuario clica botao "Buscar"
+         ↓
+event.preventDefault() evita recarregar
+         ↓
+trim().toLowerCase() limpa e minuscula
+         ↓
+Valida: campo preenchido? Se nao → alerta
+         ↓
+Monta URL parametrizada
+         ↓
+fetch(url) chama API
+         ↓
+resposta.json() converte em objeto
+         ↓
+Verifica: status = 'success'?
+         ↓
+Se SIM → <img> montada com URL
+         ↓
+innerHTML renderiza imagem
+         ↓
+Imagem aparece na tela
+         ↓
+Se NAO → alerta "Raça não encontrada"
+```
+
+### Resumo do exercicio 05
+
+1. Usuario digita raca e clica botao.
+2. JavaScript pega o valor e valida.
+3. JavaScript chama API com URL parametrizada.
+4. API retorna JSON com URL da imagem.
+5. JavaScript exibe imagem no HTML.
+6. Se erro, mostra alerta simples.
