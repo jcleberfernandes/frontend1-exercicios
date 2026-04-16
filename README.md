@@ -17,6 +17,7 @@ Este documento foi escrito para iniciantes, com linguagem simples e explicacao p
 - `exercicio-03`: criptografia AES com `CryptoJS`.
 - `exercicio-04`: anotacoes e pratica de `fetch`, `async/await` e metodos HTTP.
 - `exercicio-05`: buscar imagens de cachorro por raca usando API externa.
+- `exercicio-06`: APIs do navegador com mensagem na tela, notificacao e fala.
 
 ## Exercicio 01 - JSON e leitura de arquivo
 
@@ -1088,3 +1089,157 @@ Se NAO → alerta "Raça não encontrada"
 4. API retorna JSON com URL da imagem.
 5. JavaScript exibe imagem no HTML.
 6. Se erro, mostra alerta simples.
+
+## Exercicio 06 - APIs do navegador: mensagem, notificacao e fala
+
+### Objetivo do exercicio
+
+Aprender a usar APIs do navegador no frontend para mostrar mensagem na pagina, disparar notificacao e reproduzir fala com voz sintetizada.
+
+### O que foi feito
+
+1. Criado um botao para exibir uma mensagem dentro da propria pagina.
+2. Mantido um botao separado para acionar a fala com `SpeechSynthesisUtterance`.
+3. Verificado suporte a `Notification` no navegador.
+4. Solicitada permissao de notificacao somente quando necessario.
+5. Exibida uma notificacao do navegador quando a permissao e concedida.
+
+### Codigo 1 - Estrutura HTML usada
+
+```html
+<button id="btn2">Clica em mim</button>
+
+<button id="btn">Falar</button>
+
+<p id="mensagem"></p>
+```
+
+Explicacao:
+
+1. `btn2` e o botao principal do exercicio 06.
+2. `btn` dispara apenas a fala.
+3. `mensagem` e a area onde o texto aparece na pagina.
+
+**Fluxo:**
+```
+Usuario clica no botao
+         ↓
+JavaScript pega o elemento <p id="mensagem">
+         ↓
+textContent escreve a mensagem na pagina
+         ↓
+O usuario ve o resultado no navegador
+```
+
+### Codigo 2 - Mostrar mensagem e tentar notificar
+
+```js
+button2.addEventListener("click", () => {
+  mensagem.textContent = "exercicio 06 - APIs JavaScript do Navegador.";
+
+  if ("Notification" in window) {
+    const mostrar = () => mostrarNotificacao("Mensagem", "Isto veio da Notification API!");
+
+    if (Notification.permission === "granted") {
+      mostrar();
+      return;
+    }
+
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        mostrar();
+      }
+    });
+  }
+});
+```
+
+Explicacao:
+
+1. O clique no botao dispara a funcao.
+2. A mensagem aparece na pagina com `textContent`.
+3. O codigo verifica se o navegador suporta `Notification`.
+4. Se a permissao ja existe, a notificacao aparece na hora.
+5. Se nao existe, o navegador pede permissao ao usuario.
+6. Se o usuario permitir, a notificacao e exibida.
+
+**Fluxo:**
+```
+Usuario clica em "Clica em mim"
+         ↓
+Mensagem aparece no paragrafo da pagina
+         ↓
+Verifica se o navegador suporta Notification
+         ↓
+Se a permissao ja foi aceita → mostra a notificacao
+         ↓
+Se a permissao ainda nao existe → pede permissao
+         ↓
+Se o usuario aceitar → mostra a notificacao
+```
+
+### Codigo 3 - Fala com Web Speech API
+
+```js
+button.addEventListener("click", () => {
+  falar("Olá! Isto é uma demonstração.");
+});
+
+function falar(texto) {
+  const utterance = new SpeechSynthesisUtterance(texto);
+  utterance.lang = "pt-PT";
+  speechSynthesis.speak(utterance);
+}
+```
+
+Explicacao:
+
+1. O clique no botao `Falar` chama a funcao `falar`.
+2. `SpeechSynthesisUtterance` cria o texto que sera falado.
+3. `utterance.lang` define o idioma da voz.
+4. `speechSynthesis.speak()` reproduz a fala no navegador.
+
+**Fluxo:**
+```
+Usuario clica em "Falar"
+         ↓
+falar() cria o texto da fala
+         ↓
+SpeechSynthesisUtterance prepara a voz
+         ↓
+speechSynthesis.speak() executa a fala
+         ↓
+O navegador fala o texto em voz alta
+```
+
+### Codigo 4 - Criar a notificacao
+
+```js
+function mostrarNotificacao(titulo, corpo) {
+  if (Notification.permission === "granted") {
+    new Notification(titulo, {
+      body: corpo,
+      icon: "https://cdn-icons-png.flaticon.com/512/1827/1827504.png",
+    });
+  }
+}
+```
+
+Explicacao:
+
+1. A funcao recebe titulo e corpo da notificacao.
+2. Ela so cria a notificacao se a permissao estiver liberada.
+3. O `icon` define uma imagem pequena para aparecer na notificacao.
+
+### Observacao importante para iniciante
+
+1. A Notification API precisa de permissao do usuario.
+2. Em alguns casos, ela funciona melhor em `localhost` ou `https`.
+3. A fala com voz sintetizada depende do suporte do navegador.
+
+### Resumo do exercicio 06
+
+1. O usuario clica no botao e ve uma mensagem na pagina.
+2. O navegador pode pedir permissao para notificacao.
+3. Se a permissao for aceita, a notificacao aparece.
+4. O botao "Falar" continua executando apenas a fala.
