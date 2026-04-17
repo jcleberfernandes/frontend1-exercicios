@@ -18,6 +18,7 @@ Este documento foi escrito para iniciantes, com linguagem simples e explicacao p
 - `exercicio-04`: anotacoes e pratica de `fetch`, `async/await` e metodos HTTP.
 - `exercicio-05`: buscar imagens de cachorro por raca usando API externa.
 - `exercicio-06`: APIs do navegador com mensagem na tela, notificacao e fala.
+- `exercicio-07`: introducao a `Canvas API` (conceitos e planejamento de pratica).
 
 ## Exercicio 01 - JSON e leitura de arquivo
 
@@ -1243,3 +1244,513 @@ Explicacao:
 2. O navegador pode pedir permissao para notificacao.
 3. Se a permissao for aceita, a notificacao aparece.
 4. O botao "Falar" continua executando apenas a fala.
+
+
+## Exercicio 07 - Canvas API
+
+### Objetivo do exercicio
+
+Entender os fundamentos da `Canvas API`: como criar uma area de desenho, obter o contexto `2d`, desenhar formas basicas, aplicar estilos e preparar animacoes simples.
+
+### O que foi feito
+
+1. Registradas anotacoes de introducao sobre o elemento `<canvas>`.
+2. Revisado o papel do `getContext('2d')` para desenhar via JavaScript.
+3. Mapeados topicos essenciais para estudo: formas, cores e animacao.
+4. Anotado uso de `clearRect` e `requestAnimationFrame` para animacoes.
+5. Preparado o exercicio para implementacao pratica no proximo passo.
+
+### Estado atual dos arquivos do exercicio 07
+
+
+1. `index.html` foi criado, mas ainda sem conteudo.
+2. `script.js` foi criado, mas ainda sem conteudo.
+3. `style.css` foi criado, mas ainda sem conteudo.
+
+### Codigo 1 - Estrutura base do Canvas (exemplo de estudo)
+
+```html
+<canvas id="tela" width="500" height="300"></canvas>
+```
+
+```js
+const canvas = document.getElementById('tela');
+const ctx = canvas.getContext('2d');
+```
+
+Explicacao:
+
+1. `<canvas>` cria uma area de desenho na pagina.
+2. `width` e `height` definem o tamanho da area.
+3. `getContext('2d')` libera as funcoes para desenhar formas, linhas e textos.
+
+**Fluxo:**
+```
+HTML cria elemento canvas
+         ↓
+JavaScript pega o elemento com getElementById
+         ↓
+getContext('2d') cria contexto de desenho
+         ↓
+ctx fica pronto para desenhar
+```
+
+### Coordenadas no Canvas - xCoord e yCoord
+
+No Canvas, quase tudo depende de coordenadas.
+
+1. `xCoord` controla horizontal (esquerda e direita).
+2. `yCoord` controla vertical (cima e baixo).
+3. Quando voce altera `xCoord` e `yCoord`, o desenho muda de lugar na tela.
+
+Exemplo rapido:
+
+```js
+let xCoord = 30;
+let yCoord = 60;
+
+ctx.fillStyle = '#2563eb';
+ctx.fillRect(xCoord, yCoord, 80, 50);
+```
+
+Explicacao:
+
+1. `fillRect(xCoord, yCoord, largura, altura)` usa `xCoord` e `yCoord` como ponto inicial.
+2. Se `xCoord` aumentar, o retangulo vai para a direita.
+3. Se `yCoord` aumentar, o retangulo desce na tela.
+
+**Fluxo:**
+```
+Define xCoord e yCoord
+         ↓
+fillRect usa coordenadas para posicionar desenho
+         ↓
+Alterar coordenadas muda a posicao no canvas
+```
+
+### Posicoes, medidas e angulos no Canvas
+
+Para desenhar com precisao, pense em 3 partes: posicao, medida e angulo.
+
+1. Posicao: `x` e `y` dizem onde o desenho comeca.
+2. Medida: largura, altura e raio dizem o tamanho do desenho.
+3. Angulo: define direcao de linha, rotacao e trechos de circulo.
+
+#### 1. Posicoes no eixo X e Y
+
+1. No canvas, o ponto `(0, 0)` fica no canto superior esquerdo.
+2. `x` aumenta para a direita.
+3. `y` aumenta para baixo.
+
+Exemplo:
+
+```js
+const x = 120;
+const y = 80;
+
+ctx.fillStyle = '#2563eb';
+ctx.fillRect(x, y, 60, 40);
+```
+
+Nesse caso, o retangulo comeca no ponto `(120, 80)`.
+
+#### 2. Medidas de cada forma
+
+1. `fillRect(x, y, largura, altura)` usa largura e altura em pixels.
+2. `arc(x, y, raio, inicio, fim)` usa raio em pixels.
+3. Quanto maior a medida, maior o desenho na tela.
+
+Exemplo:
+
+```js
+ctx.fillRect(20, 30, 100, 50); // largura 100, altura 50
+
+ctx.beginPath();
+ctx.arc(220, 60, 30, 0, Math.PI * 2); // raio 30
+ctx.fill();
+```
+
+#### 3. Angulos para linhas e circulos
+
+No Canvas, angulos normalmente usam radianos.
+
+1. `0` rad = direita.
+2. `Math.PI / 2` = baixo.
+3. `Math.PI` = esquerda.
+4. `Math.PI * 2` = volta completa (360 graus).
+
+Conversao util:
+
+1. Graus para radianos: rad = graus * (Math.PI / 180)
+
+Exemplo com arco:
+
+```js
+const inicio = 0;
+const fim = 90 * (Math.PI / 180); // 90 graus
+
+ctx.beginPath();
+ctx.arc(320, 80, 40, inicio, fim);
+ctx.stroke();
+```
+
+Exemplo com direcao entre dois pontos:
+
+```js
+const x1 = 60;
+const y1 = 60;
+const x2 = 180;
+const y2 = 120;
+
+const angulo = Math.atan2(y2 - y1, x2 - x1);
+```
+
+`Math.atan2` ajuda a calcular o angulo de direcao de um ponto para outro.
+
+#### 4. Assinaturas do arc()
+
+No Canvas, voce vai ver estas duas formas de usar:
+
+```js
+arc(x, y, radius, startAngle, endAngle)
+arc(x, y, radius, startAngle, endAngle, counterclockwise)
+```
+
+Explicacao de cada parametro:
+
+1. `x`: coordenada horizontal do centro do circulo/arco.
+2. `y`: coordenada vertical do centro do circulo/arco.
+3. `radius`: raio do circulo/arco em pixels.
+4. `startAngle`: angulo inicial em radianos.
+5. `endAngle`: angulo final em radianos.
+6. `counterclockwise` (opcional):
+7. `false` (padrao) desenha no sentido horario.
+8. `true` desenha no sentido anti-horario.
+
+Exemplo 1 - sem `counterclockwise` (padrao horario):
+
+```js
+ctx.beginPath();
+ctx.arc(150, 100, 40, 0, Math.PI); // meia volta superior
+ctx.stroke();
+```
+
+Exemplo 2 - com `counterclockwise = true`:
+
+```js
+ctx.beginPath();
+ctx.arc(280, 100, 40, 0, Math.PI, true); // meia volta no sentido oposto
+ctx.stroke();
+```
+
+Resumo rapido:
+
+1. Os 5 primeiros parametros definem centro, tamanho e faixa de angulo.
+2. O ultimo parametro so define o sentido do desenho do arco.
+
+### Codigo 2 - Formas basicas e cores (exemplo de estudo)
+
+```js
+ctx.fillStyle = '#2ecc71';
+ctx.fillRect(20, 20, 120, 80);
+
+ctx.strokeStyle = '#1f2937';
+ctx.lineWidth = 3;
+ctx.strokeRect(170, 20, 120, 80);
+```
+
+Explicacao:
+
+1. `fillStyle` define a cor de preenchimento.
+2. `fillRect(x, y, largura, altura)` desenha um retangulo preenchido.
+3. `strokeStyle` define a cor da borda.
+4. `strokeRect(...)` desenha apenas o contorno.
+
+Outros exemplos uteis alem de `fillRect`:
+
+```js
+ctx.clearRect(20, 20, 120, 80); // limpa uma area
+
+ctx.fillStyle = '#f59e0b';
+ctx.fillRect(40, 120, 100, 60); // retangulo preenchido
+
+ctx.strokeStyle = '#111827';
+ctx.strokeRect(180, 120, 100, 60); // retangulo com borda
+
+ctx.beginPath();
+ctx.arc(340, 150, 30, 0, Math.PI * 2); // circulo
+ctx.fillStyle = '#ef4444';
+ctx.fill();
+
+ctx.font = '18px sans-serif';
+ctx.fillStyle = '#1f2937';
+ctx.fillText('Canvas API', 20, 240); // texto no canvas
+```
+
+Explicacao dos extras:
+
+1. `clearRect` apaga uma area especifica.
+2. `arc` desenha circulo/arco (com `beginPath` antes).
+3. `fillText` escreve texto na tela do canvas.
+
+### Formas geometricas no Canvas (passo a passo)
+
+Aqui esta um guia direto para criar as formas mais usadas.
+
+#### 1. Quadrado e Retangulo com fillStyle
+
+```js
+ctx.fillStyle = '#22c55e'; // cor de preenchimento
+ctx.fillRect(40, 40, 80, 80); // quadrado (largura = altura)
+
+ctx.fillStyle = '#3b82f6';
+ctx.fillRect(150, 40, 140, 80); // retangulo
+```
+
+Explicacao:
+
+1. `fillStyle` define a cor da proxima forma preenchida.
+2. `fillRect(x, y, largura, altura)` desenha a forma preenchida.
+3. Se largura e altura forem iguais, voce tem um quadrado.
+
+#### 2. Circle (circulo) com beginPath + arc + fillStyle
+
+```js
+ctx.beginPath();
+ctx.fillStyle = '#f97316';
+ctx.arc(110, 180, 45, 0, Math.PI * 2);
+ctx.fill();
+```
+
+Explicacao:
+
+1. `beginPath()` inicia um novo caminho (evita misturar com formas anteriores).
+2. `arc(x, y, raio, inicio, fim)` define o circulo.
+3. `fillStyle` define a cor interna do circulo.
+4. `fill()` pinta o interior da forma.
+
+#### 3. Triangulo com beginPath
+
+```js
+ctx.beginPath();
+ctx.moveTo(220, 220); // ponto 1
+ctx.lineTo(280, 140); // ponto 2
+ctx.lineTo(340, 220); // ponto 3
+ctx.closePath();
+ctx.fillStyle = '#ef4444';
+ctx.fill();
+```
+
+Explicacao:
+
+1. `moveTo` posiciona o inicio do desenho.
+2. `lineTo` cria as arestas do triangulo.
+3. `closePath` fecha a forma ligando ultimo ponto ao primeiro.
+4. `fill()` preenche o triangulo com a cor definida em `fillStyle`.
+
+#### 4. Linha com strokeStyle
+
+```js
+ctx.beginPath();
+ctx.moveTo(30, 280);
+ctx.lineTo(350, 280);
+ctx.lineWidth = 4;
+ctx.strokeStyle = '#111827';
+ctx.stroke();
+```
+
+Explicacao:
+
+1. `strokeStyle` define a cor da borda/linha.
+2. `lineWidth` define espessura da linha.
+3. `stroke()` desenha somente o contorno do caminho.
+
+#### 5. Elipse com ellipse
+
+```js
+ctx.beginPath();
+ctx.ellipse(430, 90, 70, 40, 0, 0, Math.PI * 2);
+ctx.fillStyle = '#a855f7';
+ctx.fill();
+```
+
+Explicacao:
+
+1. `ellipse(x, y, raioX, raioY, rotacao, inicio, fim)` cria uma elipse.
+2. `raioX` e `raioY` controlam largura e altura da elipse.
+
+#### 6. Poligono (exemplo: pentagono)
+
+```js
+ctx.beginPath();
+ctx.moveTo(430, 180);
+ctx.lineTo(470, 150);
+ctx.lineTo(510, 180);
+ctx.lineTo(495, 225);
+ctx.lineTo(445, 225);
+ctx.closePath();
+ctx.fillStyle = '#14b8a6';
+ctx.fill();
+```
+
+Explicacao:
+
+1. Poligono e uma forma com varios lados.
+2. Voce monta o poligono criando pontos com `moveTo` e `lineTo`.
+3. `closePath` fecha a ultima aresta.
+
+#### 7. Diferenca rapida: fillStyle vs strokeStyle
+
+1. `fillStyle`: cor de preenchimento (parte interna).
+2. `strokeStyle`: cor de contorno (borda/linha).
+
+#### 8. Quando usar beginPath
+
+1. Use `beginPath()` antes de uma nova forma baseada em caminho (`arc`, `lineTo`, `ellipse`).
+2. Isso evita que o desenho atual conecte com o caminho da forma anterior.
+
+**Fluxo geral para desenhar qualquer forma:**
+```
+Escolher tipo de forma
+         ↓
+Definir posicao (x, y)
+         ↓
+Definir medidas (largura, altura, raio)
+         ↓
+Definir estilo (fillStyle ou strokeStyle)
+         ↓
+Desenhar (fillRect, arc, lineTo, ellipse...)
+         ↓
+Finalizar com fill() ou stroke()
+```
+
+### Codigo 3 - Interacao com teclado (ArrowRight, ArrowLeft, switch/case, e.code e e.key)
+
+```js
+let xCoord = 50;
+let yCoord = 120;
+
+function desenharJogador() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#2563eb';
+  ctx.fillRect(xCoord, yCoord, 50, 50);
+}
+
+document.addEventListener('keydown', (e) => {
+  switch (e.code) {
+    case 'ArrowRight':
+      xCoord += 10;
+      break;
+    case 'ArrowLeft':
+      xCoord -= 10;
+      break;
+    case 'ArrowUp':
+      yCoord -= 10;
+      break;
+    case 'ArrowDown':
+      yCoord += 10;
+      break;
+  }
+
+  desenharJogador();
+});
+
+desenharJogador();
+```
+
+Explicacao:
+
+1. `document.addEventListener('keydown', ...)` escuta tecla pressionada.
+2. `e.code` identifica qual tecla foi usada (`ArrowRight`, `ArrowLeft`, etc.).
+3. `e.key` mostra o valor da tecla pressionada (exemplo: `ArrowRight`, `a`, `A`, `Enter`).
+4. `switch/case` organiza a regra para cada tecla.
+5. Cada seta altera `xCoord` ou `yCoord`.
+6. Depois de alterar coordenadas, `desenharJogador()` redesenha na nova posicao.
+
+Resumo rapido de diferenca:
+
+1. `e.code`: identifica a tecla fisica (posicao no teclado).
+2. `e.key`: identifica o valor digitado da tecla.
+
+**Fluxo:**
+```
+Usuario pressiona seta do teclado
+         ↓
+keydown captura evento
+         ↓
+switch(e.code) identifica tecla
+         ↓
+Atualiza xCoord/yCoord
+         ↓
+clearRect limpa quadro antigo
+         ↓
+fillRect desenha objeto na nova posicao
+```
+
+### Codigo 4 - Animacao simples com requestAnimationFrame (exemplo de estudo)
+
+```js
+let x = 0;
+
+function animar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); ### Os (0, 0,) = canto superior dos canvas
+  
+  ctx.fillStyle = '#2563eb';
+  
+  ctx.fillRect(x, 120, 50, 50);
+
+  x += 2;
+  if (x > canvas.width) x = -50;
+
+  requestAnimationFrame(animar);
+}
+
+animar();
+```
+
+Explicacao:
+
+1. `clearRect(0, 0, canvas.width, canvas.height)` limpa o quadro anterior para evitar rastro.
+2. Os dois zeros significam o ponto inicial da limpeza: `x = 0` e `y = 0`.
+3. Esse ponto `(0, 0)` e o canto superior esquerdo do canvas.
+4. Como a largura e altura usadas sao `canvas.width` e `canvas.height`, a limpeza cobre o canvas inteiro.
+5. O quadrado e redesenhado em nova posicao a cada frame.
+6. `requestAnimationFrame` chama a funcao de novo no proximo frame.
+7. Esse ciclo cria uma animacao suave no navegador.
+
+**Fluxo:**
+```
+animar() inicia
+         ↓
+clearRect limpa quadro anterior
+         ↓
+fillRect desenha objeto na nova posicao
+         ↓
+atualiza coordenada x
+         ↓
+requestAnimationFrame agenda proximo frame
+         ↓
+loop continuo de animacao
+```
+
+### Conceitos do exercicio 07
+
+- `canvas`: area desenhavel controlada por JavaScript.
+- `ctx` (contexto 2d): objeto com metodos de desenho.
+- `xCoord` e `yCoord`: coordenadas para posicionar e mover elementos.
+- `x` e `y`: eixos de posicao (origem no canto superior esquerdo).
+- medidas: largura, altura e raio para definir tamanho.
+- angulos: usados em arcos, rotacoes e direcao de movimento.
+- `e.code`: identifica a tecla pressionada no teclado.
+- `e.key`: identifica o valor da tecla pressionada no evento.
+- `switch/case`: ajuda a separar a acao de cada tecla.
+- `clearRect`: limpa parte da tela.
+- `requestAnimationFrame`: atualiza animacao com sincronismo de tela.
+
+### Resumo do exercicio 07
+
+1. O foco de hoje foi consolidar a base teorica da Canvas API.
+2. Foram definidos os principais comandos para desenhar, mover e animar.
+3. A estrutura do exercicio 07 ja existe na pasta.
+4. As novas anotacoes de teclado, coordenadas e interacao foram explicadas com exemplos.
+5. O proximo passo e preencher `index.html`, `script.js` e `style.css` com a pratica.
