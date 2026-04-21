@@ -19,6 +19,7 @@ Este documento foi escrito para iniciantes, com linguagem simples e explicacao p
 - `exercicio-05`: buscar imagens de cachorro por raca usando API externa.
 - `exercicio-06`: APIs do navegador com mensagem na tela, notificacao e fala.
 - `exercicio-07`: introducao a `Canvas API` (conceitos e planejamento de pratica).
+- `exercicio-08`: introducao a `Web Components` (Custom Elements e Shadow DOM).
 
 ## Exercicio 01 - JSON e leitura de arquivo
 
@@ -1693,7 +1694,7 @@ fillRect desenha objeto na nova posicao
 let x = 0;
 
 function animar() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); ### Os (0, 0,) = canto superior dos canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   
   ctx.fillStyle = '#2563eb';
   
@@ -1754,3 +1755,262 @@ loop continuo de animacao
 3. A estrutura do exercicio 07 ja existe na pasta.
 4. As novas anotacoes de teclado, coordenadas e interacao foram explicadas com exemplos.
 5. O proximo passo e preencher `index.html`, `script.js` e `style.css` com a pratica.
+
+## Exercicio 08 - Web Components
+
+### Objetivo do exercicio
+
+Entender o conceito de Web Components e como criar componentes reutilizaveis no navegador usando JavaScript puro, sem framework.
+
+### O que foi feito
+
+1. Registradas anotacoes sobre o que sao Web Components.
+2. Iniciado exemplo de classe com `extends HTMLElement`.
+3. Revisado ciclo de vida basico dos Custom Elements.
+4. Mapeadas as partes principais: `Custom Elements` e `Shadow DOM`.
+
+### Introducao: o que sao Web Components
+
+Web Components sao uma forma nativa de criar componentes reutilizaveis com HTML, CSS e JS.
+
+Vantagens principais:
+
+1. Reutilizacao: voce cria um componente e usa em varias paginas.
+2. Encapsulamento: estilo e estrutura podem ficar isolados.
+3. Independencia: nao depende de React, Vue ou Angular para funcionar.
+
+### Partes principais dos Web Components
+
+1. `Custom Elements`: permite criar novas tags HTML personalizadas (exemplo: `<meu-card></meu-card>`).
+2. `Shadow DOM`: cria um DOM interno encapsulado para o componente.
+3. `HTML Template` (uso comum): ajuda a definir estrutura reutilizavel.
+
+### Codigo 1 - Estrutura inicial do componente
+
+```js
+class MyElement extends HTMLElement {
+  connectedCallback() {}
+}
+```
+
+Explicacao:
+
+1. `class MyElement extends HTMLElement` cria um novo tipo de elemento HTML.
+2. `connectedCallback()` e executado quando o componente entra na pagina.
+3. Esse e o ponto de partida para renderizar conteudo e configurar eventos.
+
+### Codigo 2 - Registrar o Custom Element
+
+```js
+customElements.define('my-element', MyElement);
+```
+
+Explicacao:
+
+1. `customElements.define` registra o nome da nova tag.
+2. O nome deve ter hifen (exemplo: `my-element`).
+3. Depois disso, voce pode usar `<my-element></my-element>` no HTML.
+
+### Codigo 3 - Exemplo com Shadow DOM
+
+```js
+class MyElement extends HTMLElement {
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `
+      <style>
+        p { color: #2563eb; font-weight: bold; }
+      </style>
+      <p>Componente com Shadow DOM</p>
+    `;
+  }
+}
+
+customElements.define('my-element', MyElement);
+```
+
+Explicacao:
+
+1. `attachShadow({ mode: 'open' })` cria o DOM interno encapsulado.
+2. O CSS dentro do shadow afeta somente o componente.
+3. Isso evita conflito de estilo com o resto da pagina.
+
+### Ciclo de vida dos Custom Elements
+
+Metodos importantes:
+
+1. `connectedCallback()`: roda quando o elemento e adicionado no DOM.
+2. `disconnectedCallback()`: roda quando o elemento e removido do DOM.
+3. `attributeChangedCallback()`: roda quando um atributo observado muda.
+
+Exemplo curto:
+
+```js
+class UserCard extends HTMLElement {
+  static get observedAttributes() {
+    return ['name'];
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    this.render();
+  }
+
+  render() {
+    this.innerHTML = `<p>Nome: ${this.getAttribute('name') || 'Sem nome'}</p>`;
+  }
+}
+
+customElements.define('user-card', UserCard);
+```
+
+### Fluxo basico de uso
+
+```
+Criar classe com extends HTMLElement
+         ↓
+Registrar com customElements.define()
+         ↓
+Usar a nova tag no HTML
+         ↓
+connectedCallback executa ao entrar no DOM
+         ↓
+Componente renderiza conteudo
+```
+
+### Conclusao
+
+1. Web Components sao ferramentas nativas e poderosas do browser.
+2. Permitem criar interfaces modulares, reutilizaveis e encapsuladas.
+3. Sao muito uteis para organizar projetos maiores no futuro.
+
+### Resumo do exercicio 08
+
+1. Foi iniciada a base teorica e pratica de Web Components.
+2. O conceito de Custom Elements e Shadow DOM foi organizado no README.
+3. Os exemplos estao baseados somente nas anotacoes adicionadas no README.
+4. O proximo passo e transformar esses exemplos em implementacao pratica.
+
+## Exercicio 09 - Galeria de imagens com Splide.js
+
+### Objetivo do exercicio
+
+Aprender, de forma simples, como usar uma biblioteca externa para criar um carrossel de imagens.
+
+### O que foi feito
+
+1. Incluida a biblioteca Splide.js via CDN.
+2. Criada uma estrutura HTML com varias imagens.
+3. Inicializado o carrossel com JavaScript.
+4. Incluida uma segunda biblioteca, AOS, para animar o titulo.
+
+### Biblioteca 1 - Splide.js
+
+Splide.js e uma biblioteca pronta para criar carrosseis.
+
+Ela ajuda a mostrar imagens uma de cada vez, com botao de avancar, voltar e bolinhas de navegacao.
+
+### Biblioteca 2 - AOS
+
+AOS significa "Animate On Scroll".
+
+No exercicio, ela e usada de forma simples para animar o titulo quando a pagina carrega.
+
+### Codigo 1 - HTML da galeria
+
+```html
+<section class="splide" aria-label="Galeria de imagens">
+  <div class="splide__track">
+    <ul class="splide__list">
+      <li class="splide__slide"><img src="https://picsum.photos/id/1015/1200/800" alt="Paisagem com montanhas"></li>
+      <li class="splide__slide"><img src="https://picsum.photos/id/1025/1200/800" alt="Cachorro olhando para a camera"></li>
+      <li class="splide__slide"><img src="https://picsum.photos/id/1035/1200/800" alt="Estrada entre arvores"></li>
+      <li class="splide__slide"><img src="https://picsum.photos/id/1043/1200/800" alt="Vista do mar com pedras"></li>
+    </ul>
+  </div>
+</section>
+```
+
+Explicacao:
+
+1. `splide` e a classe principal do carrossel.
+2. `splide__track` e a area que segura o conteudo.
+3. `splide__list` e a lista das imagens.
+4. `splide__slide` e cada imagem do carrossel.
+
+### Codigo 2 - Incluir as bibliotecas via CDN
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+```
+
+Explicacao:
+
+1. O primeiro `link` traz os estilos do carrossel.
+2. O segundo `link` traz os estilos da animacao.
+3. O primeiro `script` traz o JavaScript do carrossel.
+4. O segundo `script` traz o JavaScript da animacao.
+
+### Codigo 3 - Inicializar o carrossel
+
+```js
+document.addEventListener('DOMContentLoaded', () => {
+  new Splide('.splide', {
+    type: 'loop',
+    perPage: 1,
+    autoplay: true,
+    interval: 2500,
+    arrows: true,
+    pagination: true,
+    speed: 700,
+  }).mount();
+
+  AOS.init({
+    duration: 800,
+    once: true,
+  });
+});
+```
+
+Explicacao:
+
+1. `DOMContentLoaded` espera o HTML carregar antes de rodar o JavaScript.
+2. `new Splide('.splide', {...})` cria o carrossel.
+3. `loop` faz a galeria voltar para o inicio.
+4. `autoplay` faz as imagens passarem sozinhas.
+5. `arrows` mostra os botoes de avancar e voltar.
+6. `pagination` mostra as bolinhas embaixo.
+7. `AOS.init()` ativa a animacao do titulo.
+
+### Fluxo simples do exercicio 09
+
+```
+HTML cria a estrutura da galeria
+         ↓
+CDN carrega Splide.js e AOS
+         ↓
+JavaScript espera a pagina carregar
+         ↓
+Splide monta o carrossel
+         ↓
+AOS anima o titulo
+         ↓
+Usuario ve a galeria funcionando
+```
+
+### Resumo do exercicio 09
+
+1. Foi criado um carrossel de imagens com Splide.js.
+2. As imagens foram colocadas em uma estrutura HTML simples.
+3. O JavaScript iniciou o carrossel automaticamente.
+4. A biblioteca AOS foi incluida para mostrar uma segunda biblioteca no projeto.
+5. O exercicio foi montado de forma simples para facilitar o entendimento.
+
+
