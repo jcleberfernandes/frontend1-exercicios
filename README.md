@@ -35,6 +35,16 @@ Aprender o basico de JSON: criar objeto, converter para JSON, converter de volta
 4. Lido o arquivo local `data.json` com `fetch`.
 5. Mostrados os dados no HTML usando `textContent`.
 
+### Componentes do exercicio 01 (o que cada um faz)
+
+1. `index.html`: fornece os elementos de tela (`nome`, `idade`, `email`) onde os dados aparecem.
+2. `exercicio-01.js`: contem a logica de criar objeto, converter JSON e preencher a pagina.
+3. `data.json`: arquivo local com dados estruturados para teste de leitura.
+4. `JSON.stringify`: converte objeto JavaScript em texto JSON.
+5. `JSON.parse`: converte texto JSON de volta para objeto JavaScript.
+6. `fetch`: busca o arquivo `data.json` para uso no frontend.
+7. `textContent`: escreve os valores no HTML sem interpretar tags.
+
 ### Codigo 1 - Criar objeto JavaScript
 
 ```js
@@ -162,6 +172,15 @@ Aprender a salvar dados do formulario no navegador e controlar tema claro/escuro
 3. Lido o tema salvo ao abrir a pagina.
 4. Aplicado modo escuro quando necessario.
 5. Alterado e salvo tema no clique.
+
+### Componentes do exercicio 02 (o que cada um faz)
+
+1. `index.html`: contem formulario, campos de entrada e botao de tema.
+2. `script.js`: captura valores, salva dados e alterna tema da interface.
+3. `localStorage`: guarda dados e tema no navegador para manter entre sessoes.
+4. `theme-button`: botao que dispara a mudanca entre claro e escuro.
+5. `classList` no `body`: aplica ou remove a classe `dark` para trocar visual.
+6. `style.css`: define como o layout fica no modo normal e no modo escuro.
 
 ### Codigo 1 - Salvar dados do formulario no localStorage
 
@@ -350,6 +369,15 @@ Entender o fluxo basico de criptografar e descriptografar senha no frontend para
 5. Recuperado valor salvo e feita descriptografia.
 6. Mostrado resultado na tela.
 
+### Componentes do exercicio 03 (o que cada um faz)
+
+1. `input#password`: recebe a senha digitada pelo usuario.
+2. `button#password-button`: inicia o processo de criptografar e descriptografar.
+3. `p#resultado`: mostra mensagem de validacao e resultado final.
+4. `CryptoJS` (CDN): biblioteca que fornece `AES.encrypt` e `AES.decrypt`.
+5. `secretKey`: chave usada para criptografar e descriptografar o valor.
+6. `localStorage`: armazena temporariamente a senha criptografada para estudo.
+
 ### Codigo 1 - Estrutura HTML usada
 
 ```html
@@ -468,6 +496,16 @@ Aprender requisicoes HTTP com `fetch`, tratamento de erros e manipulacao de dado
 3. Revisados metodos HTTP principais.
 4. Testado cancelamento de requisicao com `AbortController`.
 5. Praticada manipulacao de DOM com `innerText`, `innerHTML` e `appendChild`.
+
+### Componentes do exercicio 04 (o que cada um faz)
+
+1. `fetch`: faz chamadas HTTP para buscar dados de API.
+2. `JSONPlaceholder`: API de teste para praticar `GET`, `POST`, `PUT` e `DELETE`.
+3. `then/catch`: trata sucesso e erro com encadeamento de promises.
+4. `async/await`: organiza fluxo assincrono com leitura mais simples.
+5. `AbortController`: permite cancelar requisicoes em andamento.
+6. `innerText`, `innerHTML`, `appendChild`: exibem e montam conteudo no DOM.
+7. `data-id` e `dataset`: guardam e recuperam identificadores em elementos HTML.
 
 ### API de teste usada: JSONPlaceholder
 
@@ -765,6 +803,16 @@ Aprender a consultar uma API externa, processar resposta JSON e exibir dados din
 4. Convertido resposta em JSON.
 5. Exibido imagem do cachorro no HTML de forma dinamica.
 6. Mostrado mensagem de erro se raca nao existisse.
+
+### Componentes do exercicio 05 (o que cada um faz)
+
+1. `form#breed-form`: dispara o envio ao clicar no botao de busca.
+2. `input#breed`: recebe a raca digitada pelo usuario.
+3. `div#result`: area onde a imagem retornada sera renderizada.
+4. `fetch` + Dog CEO API: busca uma imagem aleatoria da raca informada.
+5. `await resposta.json()`: transforma resposta da API em objeto JavaScript.
+6. `innerHTML`: injeta a tag `<img>` para mostrar a imagem na tela.
+7. `if (!raca)` e `if (dados.status === 'success')`: validam entrada e retorno da API.
 
 ### API usada: Dog CEO
 
@@ -1106,6 +1154,16 @@ Aprender a usar APIs do navegador no frontend para mostrar mensagem na pagina, d
 4. Solicitada permissao de notificacao somente quando necessario.
 5. Exibida uma notificacao do navegador quando a permissao e concedida.
 
+### Componentes do exercicio 06 (o que cada um faz)
+
+1. `button#btn2`: aciona exibicao de mensagem e tentativa de notificacao.
+2. `button#btn`: aciona a leitura em voz alta (fala sintetizada).
+3. `p#mensagem`: mostra texto na interface apos clique.
+4. `Notification API`: cria notificacoes nativas do navegador.
+5. `Notification.requestPermission()`: solicita autorizacao do usuario.
+6. `SpeechSynthesisUtterance`: cria o conteudo de voz para o navegador falar.
+7. `speechSynthesis.speak()`: reproduz o texto com voz sintetizada.
+
 ### Codigo 1 - Estrutura HTML usada
 
 ```html
@@ -1260,6 +1318,16 @@ Entender os fundamentos da `Canvas API`: como criar uma area de desenho, obter o
 3. Mapeados topicos essenciais para estudo: formas, cores e animacao.
 4. Anotado uso de `clearRect` e `requestAnimationFrame` para animacoes.
 5. Preparado o exercicio para implementacao pratica no proximo passo.
+
+### Componentes do exercicio 07 (o que cada um faz)
+
+1. `<canvas id="tela">`: area onde os desenhos sao renderizados.
+2. `ctx = canvas.getContext('2d')`: objeto com metodos de desenho 2D.
+3. `xCoord` e `yCoord`: controlam posicao de elementos desenhados.
+4. `fillRect`, `strokeRect`, `arc`, `ellipse`: desenham formas geometricas.
+5. `keydown` + `switch (e.code)`: controla movimento por teclado.
+6. `clearRect`: limpa o quadro anterior para evitar rastro visual.
+7. `requestAnimationFrame`: cria loop de animacao sincronizado com a tela.
 
 ### Estado atual dos arquivos do exercicio 07
 
@@ -1769,6 +1837,16 @@ Entender o conceito de Web Components e como criar componentes reutilizaveis no 
 3. Revisado ciclo de vida basico dos Custom Elements.
 4. Mapeadas as partes principais: `Custom Elements` e `Shadow DOM`.
 
+### Componentes do exercicio 08 (o que cada um faz)
+
+1. `class ... extends HTMLElement`: define um novo tipo de elemento HTML.
+2. `customElements.define(...)`: registra a nova tag para uso no HTML.
+3. `connectedCallback()`: executa quando o componente entra no DOM.
+4. `attributeChangedCallback()`: reage a mudanca de atributos observados.
+5. `attachShadow({ mode: 'open' })`: cria DOM encapsulado para estrutura e estilos.
+6. `shadow.innerHTML`: renderiza o conteudo interno do componente.
+7. Tag customizada (ex.: `<my-element>`): ponto de uso do componente na pagina.
+
 ### Introducao: o que sao Web Components
 
 Web Components sao uma forma nativa de criar componentes reutilizaveis com HTML, CSS e JS.
@@ -1907,6 +1985,16 @@ Aprender, de forma simples, como usar uma biblioteca externa para criar um carro
 3. Inicializado o carrossel com JavaScript.
 4. Incluida uma segunda biblioteca, AOS, para animar o titulo.
 
+### Componentes do exercicio 09 (o que cada um faz)
+
+1. Estrutura `splide` no HTML: define o container do carrossel.
+2. `splide__track`: area de movimento dos slides.
+3. `splide__list` e `splide__slide`: lista de itens e cada slide individual.
+4. CDN do `Splide` (CSS e JS): fornece estilo e comportamento do carrossel.
+5. `new Splide(...).mount()`: inicializa e ativa a galeria.
+6. Configuracoes (`loop`, `autoplay`, `arrows`, `pagination`): controlam comportamento visual.
+7. CDN do `AOS` + `AOS.init()`: adiciona animacao ao titulo.
+
 ### Biblioteca 1 - Splide.js
 
 Splide.js e uma biblioteca pronta para criar carrosseis.
@@ -2013,4 +2101,331 @@ Usuario ve a galeria funcionando
 4. A biblioteca AOS foi incluida para mostrar uma segunda biblioteca no projeto.
 5. O exercicio foi montado de forma simples para facilitar o entendimento.
 
+## Exercicio 10 - Progressive Web Apps (PWA)
 
+### Objetivo do exercicio
+
+Entender a base de um PWA: por que usar, quais arquivos sao obrigatorios e como registrar o `Service Worker`.
+
+### Por que usar PWA
+
+1. Acesso offline: o app pode continuar funcionando sem internet (dependendo do cache configurado).
+2. Instalacao: o usuario pode adicionar o app na tela inicial do celular ou desktop.
+3. Performance: com cache bem configurado, o carregamento fica mais rapido.
+4. Engajamento: notificacoes e acesso direto aumentam retorno do usuario.
+
+### Componentes principais de um PWA
+
+1. `Service Worker`: script em background para cache, estrategia offline e notificacoes.
+2. `manifest.json`: arquivo com nome, icones e configuracao visual do app instalado.
+3. `HTTPS`: exigencia de seguranca para funcionar em ambiente real (localhost e excecao no desenvolvimento).
+
+### Requisitos minimos
+
+1. Ter um `Service Worker` registrado no navegador.
+2. Ter um `manifest.json` valido.
+3. Servir a aplicacao com `HTTPS` (ou `localhost` durante desenvolvimento).
+
+### Componentes do exercicio 10 (o que cada um faz)
+
+1. `manifest.json`: define nome, icones, cores e modo de exibicao do app instalado.
+2. `<link rel="manifest" ...>`: conecta o manifest ao HTML.
+3. `service-worker.js`: executa em background para cache e estrategia offline.
+4. `navigator.serviceWorker.register(...)`: registra o Service Worker no navegador.
+5. `HTTPS` (ou localhost): requisito de seguranca para recursos de PWA.
+6. `icons` do manifest: imagens usadas na instalacao e atalho do app.
+
+### Codigo 1 - Exemplo de manifest.json comentado
+
+```json
+{
+  "name": "Meu PWA",
+  "short_name": "PWA",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+```
+
+Explicacao dos campos do manifest:
+
+1. `name`: nome completo do app (exibido em tela de instalacao e configuracoes).
+2. `short_name`: nome curto para locais com pouco espaco (icone na tela inicial).
+3. `start_url`: rota inicial aberta quando o app e iniciado.
+4. `display: "standalone"`: abre como app instalado, sem barra tradicional do navegador.
+5. `background_color`: cor de fundo usada durante carregamento inicial do app.
+6. `theme_color`: cor principal de interface (barra superior e elementos do sistema).
+7. `icons`: lista de icones que o sistema usa ao instalar o app.
+8. `icons[].src`: caminho do arquivo da imagem do icone.
+9. `icons[].sizes`: tamanho do icone em pixels (`192x192`, `512x512`, etc.).
+10. `icons[].type`: tipo do arquivo da imagem (exemplo: `image/png`).
+
+### Codigo 2 - Referenciar manifest no HTML
+
+```html
+<link rel="manifest" href="/manifest.json">
+```
+
+Explicacao:
+
+1. Esse `link` conecta o arquivo `manifest.json` ao HTML.
+2. Sem essa referencia, o navegador nao reconhece a configuracao de instalacao do app.
+
+### Introducao ao Service Worker
+
+Service Worker e um script que roda em background, separado da pagina.
+
+Ele permite:
+
+1. Interceptar requisicoes de rede.
+2. Guardar arquivos no cache para uso offline.
+3. Melhorar performance com estrategias de cache.
+4. Suportar recursos como notificacoes.
+
+### Codigo 3 - Registrar Service Worker
+
+```js
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then((registration) => {
+      console.log('Service Worker registrado com sucesso:', registration);
+    })
+    .catch((error) => {
+      console.error('Falha ao registrar o Service Worker:', error);
+    });
+}
+```
+
+Explicacao de cada parte:
+
+1. `if ('serviceWorker' in navigator)`: verifica se o navegador suporta Service Worker.
+2. `navigator.serviceWorker.register('/service-worker.js')`: pede o registro do arquivo do worker.
+3. `.then((registration) => { ... })`: executa quando o registro funciona.
+4. `registration`: objeto com informacoes do worker registrado.
+5. `.catch((error) => { ... })`: executa se houver erro no registro.
+6. `console.error(...)`: mostra no console o motivo da falha.
+
+**Fluxo:**
+```
+Pagina carrega
+         ↓
+Verifica suporte a Service Worker
+         ↓
+Se suportar → tenta registrar /service-worker.js
+         ↓
+Se sucesso → log de confirmacao
+         ↓
+Se falha → log de erro
+```
+
+### Resumo do exercicio 10
+
+1. PWA melhora experiencia com offline, instalacao e desempenho.
+2. `manifest.json` define identidade visual e comportamento do app instalado.
+3. `Service Worker` e a base tecnica para cache e funcionamento offline.
+4. Registro do worker deve ter verificacao de suporte e tratamento de erro.
+
+
+## Exercicio 11 - Lighthouse, acessibilidade e SEO
+
+### Objetivo do exercicio
+
+Aprender a usar o Lighthouse para analisar um site e identificar melhorias de acessibilidade, SEO e performance.
+
+### O que foi feito
+
+1. Organizado o passo a passo para gerar relatorio no Chrome DevTools.
+2. Separados os principais pontos de acessibilidade avaliados pelo Lighthouse.
+3. Separados os principais pontos basicos de SEO avaliados no relatorio.
+4. Revisadas as metricas de performance mais importantes (FCP, LCP, TTI, CLS).
+5. Criado um checklist de melhoria para aplicar apos cada analise.
+
+### Componentes do exercicio 11 (o que cada um faz)
+
+1. Aba `Lighthouse` no Chrome DevTools: gera relatorio automatico do site.
+2. Categoria `Performance`: mede velocidade e estabilidade visual.
+3. Categoria `Accessibility`: avalia inclusao e usabilidade para todas as pessoas.
+4. Categoria `SEO`: valida requisitos tecnicos para motores de busca.
+5. Categoria `Best Practices`: aponta boas praticas de seguranca e qualidade.
+6. Categoria `PWA`: verifica criterios para Progressive Web App.
+
+### Introducao ao Lighthouse
+
+Lighthouse e uma ferramenta integrada no Chrome DevTools.
+
+Ela permite analisar automaticamente:
+
+1. Performance.
+2. Acessibilidade.
+3. SEO.
+4. Boas praticas.
+5. PWA (Progressive Web App).
+
+### Como usar o Lighthouse
+
+1. Abrir o site no Chrome.
+2. Clicar com botao direito e escolher `Inspecionar`.
+3. Ir ao separador `Lighthouse`.
+4. Escolher as categorias que deseja analisar.
+5. Clicar em `Generate report`.
+
+### Metricas principais de performance
+
+1. `First Contentful Paint (FCP)`: tempo ate o primeiro conteudo ficar visivel.
+2. `Largest Contentful Paint (LCP)`: tempo ate o maior elemento principal aparecer.
+3. `Time to Interactive (TTI)`: tempo ate a pagina responder bem a interacoes.
+4. `Cumulative Layout Shift (CLS)`: quantidade de mudancas inesperadas de layout.
+
+### Acessibilidade (o que o Lighthouse avalia)
+
+1. Contraste de cores suficiente entre texto e fundo.
+2. Uso correto de `label` em campos de formulario.
+3. Uso de `alt` em imagens informativas.
+4. Uso de atributos `aria-*` quando necessario.
+5. Navegacao por teclado (tab, foco visivel, ordem correta).
+6. Tamanhos de texto legiveis.
+
+Boas praticas de acessibilidade tornam o site mais inclusivo.
+
+### SEO basico (o que o Lighthouse avalia)
+
+1. Presenca de `title` na pagina.
+2. Presenca de `meta description`.
+3. Uso correto de hierarquia de titulos (`h1`, `h2`, etc.).
+4. Links com texto claro e compreensivel.
+5. `robots.txt` acessivel.
+6. `sitemap.xml` detectado.
+
+Esses pontos ajudam motores de busca a entender e indexar melhor o site.
+
+### Codigo 1 - Base minima de SEO e acessibilidade no HTML
+
+```html
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercicio 11 - Lighthouse</title>
+    <meta name="description" content="Analise de acessibilidade, SEO e performance com Lighthouse." />
+  </head>
+  <body>
+    <header>
+      <h1>Lighthouse, Acessibilidade e SEO</h1>
+    </header>
+  </body>
+</html>
+```
+
+Explicacao:
+
+1. `lang="pt-PT"` ajuda leitores de tela e mecanismos de busca.
+2. `title` e `meta description` ajudam no SEO.
+3. `h1` define o titulo principal da pagina.
+4. `meta viewport` melhora leitura em dispositivos moveis.
+
+### Codigo 2 - Exemplo de acessibilidade em imagem e formulario
+
+```html
+<img src="./img/dashboard.png" alt="Grafico de desempenho com barras por mes" />
+
+<label for="email">Email</label>
+<input id="email" name="email" type="email" aria-describedby="email-help" />
+<small id="email-help">Digite um email valido para contato.</small>
+```
+
+Explicacao:
+
+1. `alt` descreve imagem para quem usa leitor de tela.
+2. `label` vinculado ao `input` melhora usabilidade e acessibilidade.
+3. `aria-describedby` conecta instrucoes ao campo.
+
+### Codigo 3 - Exemplo simples de melhoria de performance
+
+```html
+<img src="./img/banner.jpg" alt="Banner principal" loading="lazy" width="1200" height="600" />
+
+<script src="./script.js" defer></script>
+```
+
+Explicacao:
+
+1. `loading="lazy"` adia carregamento de imagem fora da area inicial.
+2. `width` e `height` ajudam a reduzir `CLS` (saltos de layout).
+3. `defer` evita bloquear renderizacao do HTML.
+
+### Melhorias com base no Lighthouse
+
+Apos gerar o relatorio, e possivel:
+
+1. Identificar problemas de cada categoria.
+2. Ver sugestoes automaticas da ferramenta.
+3. Ajustar codigo para melhorar pontuacao e experiencia real.
+
+Importante:
+
+1. Nao precisa atingir 100 em tudo.
+2. O foco e garantir boa experiencia para usuarios reais.
+
+### Fluxo recomendado do exercicio 11
+
+```
+Abrir pagina no Chrome
+         ↓
+Gerar relatorio no Lighthouse
+         ↓
+Analisar acessibilidade (contraste, labels, alt, foco)
+         ↓
+Analisar SEO (title, description, headings, links)
+         ↓
+Analisar performance (FCP, LCP, TTI, CLS)
+         ↓
+Aplicar melhorias no codigo
+         ↓
+Gerar novo relatorio e comparar evolucao
+```
+
+### Exercicio (pratica guiada)
+
+Gerar um relatorio com o Lighthouse e identificar:
+
+1. Problemas de acessibilidade.
+2. Melhorias possiveis de SEO.
+3. Otimizacoes de performance.
+
+Checklist rapido:
+
+1. A pagina possui `title` e `meta description`?
+2. As imagens possuem `alt` adequado?
+3. Formularios possuem `label` associado?
+4. Existe apenas um `h1` principal?
+5. O layout evita saltos (CLS)?
+6. O carregamento principal esta rapido (FCP/LCP aceitaveis)?
+
+### Conclusao
+
+O Lighthouse e uma ferramenta poderosa e gratuita.
+
+Testar acessibilidade e SEO desde o inicio do desenvolvimento reduz retrabalho e melhora qualidade final do site.
+
+### Resumo do exercicio 11
+
+1. Lighthouse ajuda a medir qualidade tecnica da pagina.
+2. Acessibilidade melhora inclusao e usabilidade.
+3. SEO ajuda motores de busca a entender melhor o conteudo.
+4. Performance melhora velocidade e experiencia do usuario.
+5. O mais importante e evolucao continua, nao apenas nota final.
