@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No Pain, No Gain</title>
-    <link rel="stylesheet" href="style.css"> 
-    
+    <title>No Pain, No Gain Treinos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Exercício Final</h1>
-        <p>No Pain, No Gain</p>
-    
-<div id ="btn-total">
-    <div class="btn-novotreino">
-        <button id="btn-treino" class="btn-treino">novo treino</button>
-    </div>
-    <div class="btn-delete">
-        <button id="btn-delete" class="btn-delete">deletar treino</button>
-    </div>
-   <div class="btn-edit">
-        <button id="btn-editar" class="btn-edit">editar treino</button>
-    </div> 
-</div>
-</header>
-  <script src="script.js"></script>
+    <main class="app">
+        <header class="app-header">
+            <h1>No Pain, No Gain</h1>
+            <p>No Gain, no shape☠️</p>
+        </header>
+
+        
+        <section class="todo-card">
+            <form id="todo-form" class="todo-form">
+                <label for="todo-input">Novos treinos💪🏽</label>
+                <div class="form-row">
+                    <input id="todo-input" type="text" placeholder="Ex.: Treino de pernas" maxlength="120" required>
+                    <button class="btn-add" type="submit">
+                        <i class="bi bi-plus-circle" aria-hidden="true"></i>
+                        <span>Adicionar treino</span>
+                    </button>
+                </div>
+            </form>
+
+            <section class="todo-list-area" aria-live="polite">
+                <h2>Meus treinos</h2>
+                <ul id="todo-list" class="todo-list"></ul>
+                <p id="empty-state" class="empty-state">Nenhum treino criado ainda.</p>
+            </section>
+        </section>
+        <header>
+            <h2>Dias de Vitaminas</h2>
+            <p>VAMOS FICAR STRONG!!!🦍</p>
+        </header>
+        <section class="todo-vt">
+            <form id="todo-form-vt" class="todo-form">
+                <label for="todo-input-vt">💉Vitaminas Aplicadas😈</label>
+                <div class="form-row">
+                    <input id="todo-input-vt" type="text" placeholder="Ex.: Segunda-feira - Vitamina C" maxlength="120" required>
+                    <button class="btn-add" type="submit">
+                        <i class="bi bi-plus-circle" aria-hidden="true"></i>
+                        <span>Adicionar vitamina</span>
+                    </button>
+                </div>
+            </form>
+
+            <section class="todo-list-area" aria-live="polite">
+                <h2>Meus dias de vitaminas</h2>
+                <ul id="todo-list-vt" class="todo-list"></ul>
+                <p id="empty-state-vt" class="empty-state">Nenhum dia de vitamina criado ainda.</p>
+            </section>
+
+        </section>  
+    </main>
 </body>
 </html>
