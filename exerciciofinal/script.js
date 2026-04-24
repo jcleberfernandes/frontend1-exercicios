@@ -77,14 +77,32 @@ function criarAppLista(config) {
             const btnEditar = document.createElement("button");
             btnEditar.type = "button";
             btnEditar.className = "edit-action";
-            btnEditar.textContent = "Editar";
             btnEditar.dataset.id = item.id;
+
+            const iconeEditar = document.createElement("i");
+            iconeEditar.className = "bi bi-pencil-square";
+            iconeEditar.setAttribute("aria-hidden", "true");
+
+            const textoEditar = document.createElement("span");
+            textoEditar.textContent = "Editar";
+
+            btnEditar.appendChild(iconeEditar);
+            btnEditar.appendChild(textoEditar);
 
             const btnApagar = document.createElement("button");
             btnApagar.type = "button";
             btnApagar.className = "delete-action";
-            btnApagar.textContent = "Apagar";
             btnApagar.dataset.id = item.id;
+
+            const iconeApagar = document.createElement("i");
+            iconeApagar.className = "bi bi-trash3";
+            iconeApagar.setAttribute("aria-hidden", "true");
+
+            const textoApagar = document.createElement("span");
+            textoApagar.textContent = "Apagar";
+
+            btnApagar.appendChild(iconeApagar);
+            btnApagar.appendChild(textoApagar);
 
             btnEditar.addEventListener("click", function () {
                 editarItem(item.id);
