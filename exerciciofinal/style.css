@@ -7,7 +7,8 @@ body {
     min-height: 100vh;
     font-family: "Trebuchet MS", "Segoe UI", sans-serif;
     color: #000000;
-    background:linear-gradient(90deg,rgb(0, 102, 142) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%);
+    background:linear-gradient(90deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(8, 8, 108, 1) 45%, rgba(8, 37, 140, 1) 66%, rgba(4, 116, 192, 1) 99%, rgba(4, 125, 198, 1) 72%, rgba(0, 212, 255, 1) 100%);
+
 }
 
 .app {
@@ -21,14 +22,31 @@ header {
     margin-bottom: 20px;
 }
 
+
+.header-image {
+    display: block;
+    width: 86%;
+    object-position: center;
+    height: 200px;
+    margin: 0 auto 20px;
+    object-fit: cover;
+}
+
+
+
 h1 {
     margin: 0;
     font-size: 2rem;
 }
 
+.app > header h1,
+.app > header h2,
+.app > header p {
+    color: #ffffff;
+}
+
 .app > header p {
     margin: 8px 0 0;
-    color: #0a0a0a;
 }
 
 .todo-card,
@@ -71,14 +89,14 @@ h1 {
     border: none;
     border-radius: 10px;
     padding: 12px 16px;
-    background: #0d7a69;
+    background: linear-gradient(blue);
     color: #ffffff;
     font-weight: 700;
     cursor: pointer;
 }
 
 .btn-add:hover {
-    background: #0a6355;
+    background: #abc2bf;
 }
 
 .todo-list-area h2 {
