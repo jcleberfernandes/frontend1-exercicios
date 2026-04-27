@@ -79,9 +79,14 @@ function criarAppLista(config) {
             btnEditar.className = "edit-action";
             btnEditar.dataset.id = item.id;
 
-            const iconeEditar = document.createElement("i");
-            iconeEditar.className = "bi bi-pencil-square";
+            const iconeEditar = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            iconeEditar.setAttribute("class", "icon");
+            iconeEditar.setAttribute("viewBox", "0 0 24 24");
+            iconeEditar.setAttribute("width", "20");
+            iconeEditar.setAttribute("height", "20");
+            iconeEditar.setAttribute("fill", "currentColor");
             iconeEditar.setAttribute("aria-hidden", "true");
+            iconeEditar.innerHTML = '<path d="M3 17.25V21h3.75L17.81 9.94m-2.12-2.12L19.93 7.05c.39-.39.39-1.02 0-1.41l-2.47-2.47c-.39-.39-1.02-.39-1.41 0l-2.12 2.12m0 0L5.5 15.5"/>';
 
             const textoEditar = document.createElement("span");
             textoEditar.textContent = "Editar";
@@ -94,9 +99,14 @@ function criarAppLista(config) {
             btnApagar.className = "delete-action";
             btnApagar.dataset.id = item.id;
 
-            const iconeApagar = document.createElement("i");
-            iconeApagar.className = "bi bi-trash3";
+            const iconeApagar = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            iconeApagar.setAttribute("class", "icon");
+            iconeApagar.setAttribute("viewBox", "0 0 24 24");
+            iconeApagar.setAttribute("width", "20");
+            iconeApagar.setAttribute("height", "20");
+            iconeApagar.setAttribute("fill", "currentColor");
             iconeApagar.setAttribute("aria-hidden", "true");
+            iconeApagar.innerHTML = '<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-9l-1 1H5v2h14V4z"/>';
 
             const textoApagar = document.createElement("span");
             textoApagar.textContent = "Apagar";
