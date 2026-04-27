@@ -169,5 +169,120 @@ h1 {
     color: #666;
 }
 
+/* Mobile: até 480px */
+@media (max-width: 480px) {
+    .app {
+        padding: 16px 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-image {
+        width: 100%;
+        height: 150px;
+        margin: 0 auto 16px;
+    }
+
+    .todo-card,
+    .todo-vt {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .todo-form label {
+        font-size: 0.9rem;
+    }
+
+    .form-row {
+        gap: 8px;
+    }
+
+    .form-row input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .btn-add {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+
+    .btn-add span {
+        display: none;
+    }
+
+    .todo-item {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .todo-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .todo-text {
+        font-size: 0.95rem;
+        word-break: break-word;
+    }
+
+    .todo-meta {
+        font-size: 0.8rem;
+        width: 100%;
+    }
+
+    .todo-actions {
+        width: 100%;
+        gap: 6px;
+    }
+
+    .todo-actions button {
+        flex: 1;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+        gap: 4px;
+    }
+
+    .todo-actions button span {
+        display: none;
+    }
+
+    .todo-list-area h2 {
+        font-size: 1rem;
+    }
+}
+
+/* Tablet: 481px até 768px */
+@media (max-width: 768px) {
+    .app {
+        padding: 24px 16px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .header-image {
+        width: 90%;
+        height: 180px;
+    }
+
+    .todo-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .todo-actions {
+        width: 100%;
+    }
+
+    .todo-actions button {
+        flex: 1;
+    }
+}
+
 
 
