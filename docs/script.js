@@ -56,9 +56,18 @@ function criarAppLista(config) {
         for (const item of itens) {
             const li = document.createElement("li");
             li.className = "todo-item";
+            if (item.concluido) {
+                li.classList.add("todo-item--done");
+            }
 
             const conteudo = document.createElement("div");
             conteudo.className = "todo-content";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "todo-check";
+            checkbox.checked = Boolean(item.concluido);
+            checkbox.setAttribute("aria-label", "Marcar " + item.texto + " como concluído");
 
             const texto = document.createElement("p");
             texto.className = "todo-text";
@@ -68,6 +77,7 @@ function criarAppLista(config) {
             data.className = "todo-meta";
             data.textContent = "Criado em: " + formatadorData.format(new Date(item.criadoEm));
 
+            conteudo.appendChild(checkbox);
             conteudo.appendChild(texto);
             conteudo.appendChild(data);
 
@@ -122,6 +132,13 @@ function criarAppLista(config) {
                 apagarItem(item.id);
             });
 
+            checkbox.addEventListener("change", function () {
+                item.concluido = checkbox.checked;
+                salvarItens();
+                atualizarTela();
+                mostrarToast(item.concluido ? config.nome + " concluído" : config.nome + " reaberto");
+            });
+
             acoes.appendChild(btnEditar);
             acoes.appendChild(btnApagar);
 
@@ -136,7 +153,8 @@ function criarAppLista(config) {
         const novoItem = {
             id: crypto.randomUUID(),
             texto: texto,
-            criadoEm: new Date().toISOString()
+            criadoEm: new Date().toISOString(),
+            concluido: false
         };
 
         itens.unshift(novoItem);

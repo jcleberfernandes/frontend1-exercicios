@@ -123,9 +123,34 @@ h1 {
     background: #fffdfa;
 }
 
+.todo-item--done {
+    opacity: 0.75;
+    background: #f6fbf7;
+}
+
+.todo-item--done .todo-text {
+    text-decoration: line-through;
+}
+
+.todo-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.todo-check {
+    width: 18px;
+    height: 18px;
+    accent-color: #2563eb;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
 .todo-text {
     margin: 0;
     font-weight: 600;
+    word-break: break-word;
 }
 
 .todo-meta {
